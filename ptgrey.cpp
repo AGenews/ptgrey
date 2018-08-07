@@ -104,8 +104,6 @@ g++ -Wall -Wno-unknown-pragmas -Wno-conversion-null -I "C:\Program Files\Point G
 		Andreas
 */
 #ifdef _WIN32
-#include <windows.h>
-#include <stdio.h>
 #include <conio.h>
 #endif
 
