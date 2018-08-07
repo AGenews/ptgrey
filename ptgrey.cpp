@@ -95,11 +95,24 @@ This little script initializes a PointGrey/FLIR USB3.1 Camera, and stores the
 acquired images within a new folder with a unique frameID_TimeStamp. 
 I hope you enjoy this script!
 
-Compile with: g++ -Wall -g -Wno-unknown-pragmas -Wno-conversion-null -I/usr/include/spinnaker/ -o ptgrey ptgrey.cpp  -lSpinnaker 
-
+Compile with: 
+[LINUX]
+g++ -Wall -g -Wno-unknown-pragmas -Wno-conversion-null -I/usr/include/spinnaker/ -o view_stream main.cpp  -lSpinnaker 
+[WIN]
+g++ -Wall -Wno-unknown-pragmas -Wno-conversion-null -I "C:\Program Files\Point Grey Research\Spinnaker\include" - ptgrey ptgrey.cpp -lSpinnaker
 	Cheers,
 		Andreas
 */
+#ifdef _WIN32
+#include <windows.h>
+#include <stdio.h>
+#include <conio.h>
+#endif
+
+#ifdef linux
+#include <termios.h>
+#endif
+
 #define _GLIBCXX_USE_CXX11_ABI 0
 
 #include "Spinnaker.h"
@@ -109,10 +122,6 @@ Compile with: g++ -Wall -g -Wno-unknown-pragmas -Wno-conversion-null -I/usr/incl
 #include <fstream>
 #include <chrono>
 #include <iostream>
-#include <mutex>
-#include <thread>
-#include <ncurses.h>
-#include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <time.h>
@@ -120,6 +129,8 @@ Compile with: g++ -Wall -g -Wno-unknown-pragmas -Wno-conversion-null -I/usr/incl
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+
 
 
 // Use the following enum and global constant to select whether chunk data is 
@@ -142,7 +153,7 @@ const triggerType chosenTrigger = SOFTWARE;
 
 
 /// FUNCTION DEFINITIONS
-
+#ifdef linux
 int kbhit(void)
 {
 	//###
@@ -170,6 +181,7 @@ int kbhit(void)
   	}
 	return 0;
 }
+#endif
 
 // Get current date/time, format is YYYY-MM-DD.HH:mm:ssdelay c++
 const std::string currentDateTime() {
