@@ -99,7 +99,7 @@ Compile with:
 [LINUX]
 g++ -Wall -g -Wno-unknown-pragmas -Wno-conversion-null -I/usr/include/spinnaker/ -o view_stream main.cpp  -lSpinnaker 
 [WIN]
-g++ -Wall -Wno-unknown-pragmas -Wno-conversion-null -I "C:\Program Files\Point Grey Research\Spinnaker\include" - ptgrey ptgrey.cpp -lSpinnaker
+g++ -Wall -Wno-unknown-pragmas -Wno-conversion-null -I "C:\Program Files\Point Grey Research\Spinnaker\include" - ptgrey ptgrey.cpp -lSpinnaker_v140.lib
 	Cheers,
 		Andreas
 */
